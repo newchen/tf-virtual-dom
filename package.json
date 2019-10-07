@@ -1,0 +1,47 @@
+{
+  "name": "tf-virtual-dom",
+  "version": "0.1.0",
+  "main": "./dist/index.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config ./webpack.config.dev.js",
+    "mini": "webpack",
+    "unmini": "webpack",
+    "build": "npm run mini && npm run unmini",
+    "pub": "npm publish --registry http://10.77.0.105:4873",
+    "postpublish": "git add . && git commit -m \"$npm_package_version\" && git push origin master"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/plugin-transform-object-assign": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/runtime": "^7.4.4",
+    "@babel/runtime-corejs2": "^7.4.3",
+    "babel-loader": "^8.0.5",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.3.1",
+    "html-webpack-plugin": "^3.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.tf56.lo/tf-components/tf-virtual-dom"
+  },
+  "bugs": {
+    "url": "https://github.com/newchen/tf-virtual-dom/issues"
+  },
+  "homepage": "https://github.com/newchen/tf-virtual-dom",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "description": "虚拟dom(源码解析)",
+  "dependencies": {
+    
+  }
+}
