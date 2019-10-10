@@ -56,6 +56,10 @@ function isEvent(name) {
     return /on([A-Z].+)/.test(name)
 }
 
+export function removeAttr(node, key) {
+    node.removeAttribute(key)
+}
+
 // 还可以优化
 export function setAttr(node, key, value) {
     if (isEvent(key)) {
@@ -68,11 +72,19 @@ export function setAttr(node, key, value) {
 
     switch (key) {
         case 'style':
-            node.style.cssText = value
+            if (typeof value == 'string') {
+                node.style.cssText = value
+            }
+            if(typeof value == "object" && value != null) {
+                for (var i in vaule) {
+                    node.style[i] =  value[i]
+                }
+            }
             break
         case 'value':
             var tagName = node.tagName || ''
             tagName = tagName.toLowerCase()
+
             if (tagName === 'input' || tagName === 'textarea') {
                 node.value = value
             } else {
@@ -81,7 +93,7 @@ export function setAttr(node, key, value) {
             }
             break
         case 'className':
-            node.setAttribute("class", value);
+            node.className = value // node.setAttribute("class", value);
             break
         case 'ref':
             if(typeof value == 'function') {

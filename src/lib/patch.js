@@ -16,6 +16,7 @@ function dfsWalk(node, walker, patches) {
     var currentPatches = patches[walker.index] // 从patches拿出当前节点的差异
 
     var len = node.childNodes ? node.childNodes.length : 0
+
     for (var i = 0; i < len; i++) { // 深度遍历子节点
         var child = node.childNodes[i]
         walker.index++
@@ -34,6 +35,7 @@ function applyPatches(node, currentPatches) {
                 var newNode = (typeof currentPatch.node === 'string') 
                     ? document.createTextNode(currentPatch.node) 
                     : currentPatch.node.render()
+
                 node.parentNode.replaceChild(newNode, node)
                 break
             case REORDER: // 重排
@@ -59,7 +61,8 @@ function applyPatches(node, currentPatches) {
 function setProps(node, props) {
     for (var key in props) {
         if (props[key] === void 666) {
-            node.removeAttribute(key)
+            // node.removeAttribute(key)
+            _.removeAttr(node, key)
         } else {
             var value = props[key]
             _.setAttr(node, key, value)
@@ -89,8 +92,12 @@ function reorderChildren(node, moves) {
             }
             staticNodeList.splice(index, 1)
         } else if (move.type === 1) { // insert item
-            var insertNode = maps[move.item.key] ? maps[move.item.key].cloneNode(true) // reuse old item
-                : (typeof move.item === 'object') ? move.item.render() : document.createTextNode(move.item)
+            var insertNode = maps[move.item.key] 
+                ? maps[move.item.key].cloneNode(true) // reuse old item
+                : (typeof move.item === 'object') 
+                    ? move.item.render() 
+                    : document.createTextNode(move.item)
+
             staticNodeList.splice(index, 0, insertNode)
             node.insertBefore(insertNode, node.childNodes[index] || null)
         }
